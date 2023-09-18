@@ -15,3 +15,6 @@ https://myacg-my.sharepoint.com/:v:/r/personal/270256822_yoobeestudent_ac_nz/Doc
 
 --Testing video with explanation
 https://myacg-my.sharepoint.com/personal/270256822_yoobeestudent_ac_nz/_layouts/15/stream.aspx?id=%2Fpersonal%2F270256822%5Fyoobeestudent%5Fac%5Fnz%2FDocuments%2FtestingWithExplanation%2Emp4&referrer=OneDriveForBusiness&referrerScenario=OpenFile
+
+Here is my blog.
+https://naomuhibu5.wordpress.com
