@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Whac-a-Cupcakes.unity
+    guid: a5886f18fc646498fa17d9b7381aa4d7
   m_configObjects: {}

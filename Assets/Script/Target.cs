@@ -9,7 +9,7 @@ public class Target : MonoBehaviour
     private GameManager gameManager;
     public float timeOnScreen = 1.0f;
 
-    private float minValueX = 300f;　
+    private float minValueX = 300f;
     private float minValueY = 1000f;
     private float spaceBetweenSquares = 500f; 
     public float moveSpeed = 1.0f;
@@ -43,7 +43,7 @@ public class Target : MonoBehaviour
 
         if (moveTimer >= moveDuration)
         {
-            randomDirection = Random.insideUnitSphere.normalized;　//new randam movement
+            randomDirection = Random.insideUnitSphere.normalized; //new randam movement
             moveTimer = 0.0f;
         }
 

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public Button settingButton;
     public Button returnButton;
+    public Button pauseButton;
 
     public List<GameObject> targetPrefabs;
 
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     private float countdownTime;
     private float spawnRate = 1.5f;
     private bool isGameActive;
-
+    private bool isPaused;
     private float spaceBetweenSquares = 500f;
     private float minValueX = 300f;
     private float minValueY = 1000f; // y value of the center of the bottom-most square
@@ -48,6 +49,10 @@ public class GameManager : MonoBehaviour
         {
             returnButton.onClick.AddListener(ActivateTitleScreen);
         }
+        if (pauseButton !=null){
+
+            pauseButton.onClick.AddListener(PauseTheGame);
+        }
     }
 
     private void ActivateMenuScreen()
@@ -55,12 +60,14 @@ public class GameManager : MonoBehaviour
         menuScreen.SetActive(true);
         titleScreen.SetActive(false);
         settingScreen.SetActive(false);
+        settingButton.gameObject.SetActive(true);
     }
     private void ActivateSettingScreen()
     {
         settingScreen.SetActive(true);
         titleScreen.SetActive(false);
         menuScreen.SetActive(false);
+        returnButton.gameObject.SetActive(true);
     }
     private void ActivateTitleScreen()
     {
@@ -72,14 +79,16 @@ public class GameManager : MonoBehaviour
     public void StartGame(int difficulty)
     {
         isGameActive = true;
+        isPaused = false;
         countdownTime = 10f;
         score = 0;
         spawnRate /= difficulty;
         StartCoroutine(SpawnTarget());
         menuScreen.SetActive(false);
+        pauseButton.gameObject.SetActive(true);
         gameOverText.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
-        finalScoreText.gameObject.SetActive(false); // 追加：最初は非アクティブにする
+        finalScoreText.gameObject.SetActive(false);
 
     }
 
@@ -96,6 +105,7 @@ public class GameManager : MonoBehaviour
             GameOver();
         }
     }
+
 
     // While game is active spawn a random target
     IEnumerator SpawnTarget()
@@ -120,9 +130,11 @@ public class GameManager : MonoBehaviour
     // Countdown the time
     public void CountdownTimer()
     {
+        if(!isPaused){
         countdownTime -= Time.deltaTime;
         string timeText = "Time: " + countdownTime.ToString("F1"); //change number to string
         countdownText.text = timeText; // Update the time text
+        }
     }
 
     // Update score with value from target clicked
@@ -131,13 +143,32 @@ public class GameManager : MonoBehaviour
         score += scoreToAdd;
         scoreText.text = "Score: " + score.ToString(); // Update the score text
     }
-
+    public void PauseTheGame()
+    {
+        isPaused = !isPaused;
+        pauseButton.gameObject.SetActive(true);
+        
+        if (pauseButton != null)
+        {
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+                pauseButton.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                pauseButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            }
+        }
+    }
     // Stop game, bring up game over text and restart button
     public void GameOver()
     {
         isGameActive = false;
-        gameOverText.gameObject.SetActive(true);  // set gameover text ti active
-        restartButton.gameObject.SetActive(true); // Set restart button to active
+        pauseButton.gameObject.SetActive(false);
+        gameOverText.gameObject.SetActive(true);  // set gameover text to active
+        restartButton.gameObject.SetActive(true); // set restart button to active
         finalScore = score; // score into finanscore
         finalScoreText.text = "Your score " + finalScore.ToString(); // display finalscore
         finalScoreText.gameObject.SetActive(true);

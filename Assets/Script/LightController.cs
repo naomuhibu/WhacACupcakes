@@ -10,6 +10,6 @@ public class LightController : MonoBehaviour
 
     void Update()
     {
-        sceneLight.intensity = slider.value; //change the sound volume with stlider
+        sceneLight.intensity = slider.value; //change the screen intensity with stlider
     }
 }
